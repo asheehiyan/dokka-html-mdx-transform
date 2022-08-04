@@ -5,8 +5,7 @@
 - This also generates a JSON which can be imported for the sidebar.
 - This is compatible with Dokka 1.7.10
 - This require the [@graphglue/dokka-mdx-component](https://www.npmjs.com/package/@graphglue/dokka-mdx-component) npm module
-- This requires the [raw-loder](https://www.npmjs.com/package/raw-loader) npm module.
-- Caution: this does not handle the necessaray csv and js files, it just transforms the generated html files.
+- This requires that `.source` files are handled by webpack as `asset/source`
 
 ## Inputs
 

@@ -27,16 +27,16 @@ try {
         }
         const newString = mainContent.innerHTML
         const withoutEnding = path.basename(file).replace(".html", "-")
-        const newHtmlPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".raw")
+        const newHtmlPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".source")
         const newMdxPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
 import DokkaComponent from "@graphglue/dokka-mdx-component"
-import rawHTML from '!!raw-loader!./${withoutEnding}.raw'
+import sourceHTML from './${withoutEnding}.source'
 
 # ${name}
 
-<DokkaComponent dokkaHTML={rawHTML}/>
+<DokkaComponent dokkaHTML={sourceHTML}/>
         `)
         return {
             type: "doc",
