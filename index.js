@@ -31,7 +31,7 @@ try {
         const newMdxPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
-import DokkaComponent from "@graphglue/dokka-mdx-component"
+import DokkaComponent from "@graphglue/dokka-docusaurus"
 import sourceHTML from './${withoutEnding}.source'
 
 # ${name}
