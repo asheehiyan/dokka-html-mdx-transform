@@ -17,7 +17,8 @@ try {
         const name = breadcrums.querySelector(".current").textContent
         mainContent.removeChild(breadcrums)
         const cover = mainContent.querySelector(".cover")
-        mainContent.removeChild(cover)
+        const coverHeader = cover.querySelector(".cover")
+        cover.removeChild(coverHeader)
         for (a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
