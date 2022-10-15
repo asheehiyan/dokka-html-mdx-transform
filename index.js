@@ -14,11 +14,10 @@ try {
         const dom = new JSDOM(content).window.document
         const mainContent = dom.getElementById("content")
         const breadcrums = mainContent.querySelector(".breadcrumbs")
+        const name = breadcrums.querySelector(".current").textContent
         mainContent.removeChild(breadcrums)
         const cover = mainContent.querySelector(".cover")
-        const coverHeader = cover.querySelector(".cover")
-        cover.removeChild(coverHeader)
-        const name = coverHeader.textContent
+        mainContent.removeChild(cover)
         for (a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
@@ -89,7 +88,6 @@ import sourceHTML from './${withoutEnding}.source'
                     continue
                 }
                 const generated = generateForDir(packagePath)
-                generated.label = generated.label.replace("Package ", "")
                 const packageStructure = generated.label.split(".")
                 let currentMap = packageHierarchy
                 for (const packagePart of packageStructure) {
