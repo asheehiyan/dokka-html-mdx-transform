@@ -139,7 +139,11 @@ import sourceHTML from './${withoutEnding}.source'
         moduleCategories.push({
             type: "category",
             label: module,
-            items: categories
+            items: categories,
+            link: {
+                type: "generated-index",
+                title: module
+            }
         })
     }
 
