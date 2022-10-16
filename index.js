@@ -14,7 +14,7 @@ try {
         const dom = new JSDOM(content).window.document
         const mainContent = dom.getElementById("content")
         const breadcrums = mainContent.querySelector(".breadcrumbs")
-        const name = breadcrums.querySelector(".current").textContent
+        const name = breadcrums.querySelector(":last-child").textContent
         mainContent.removeChild(breadcrums)
         const cover = mainContent.querySelector(".cover")
         const coverHeader = cover.querySelector(".cover")
