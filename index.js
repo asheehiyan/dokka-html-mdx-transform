@@ -9,7 +9,9 @@ try {
     const dest = core.getInput("dest")
     const folder = core.getInput("folder")
     const modules = core.getMultilineInput("modules")
-    function transformFile(file) {
+    const platform = core.getInput("platform") || "android"
+
+    function transformAndroidFile(file) {
         const content = fs.readFileSync(file)
         const dom = new JSDOM(content).window.document
         const mainContent = dom.getElementById("content")
@@ -19,6 +21,37 @@ try {
         const cover = mainContent.querySelector(".cover")
         const coverHeader = cover.querySelector(".cover")
         cover.removeChild(coverHeader)
+        for (a of mainContent.querySelectorAll("a")) {
+            const href = a.getAttribute("href")
+            if (href && !href.startsWith("http")) {
+                a.setAttribute("href", href.replace(/\.html/, "-"))
+            }
+        }
+        const newString = mainContent.innerHTML
+        const withoutEnding = path.basename(file).replace(".html", "-")
+        const newHtmlPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".source")
+        const newMdxPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".mdx")
+        fs.outputFileSync(newHtmlPath, newString)
+        fs.outputFileSync(newMdxPath, `
+import DokkaComponent from "@graphglue/dokka-docusaurus"
+import sourceHTML from './${withoutEnding}.source'
+
+# ${name}
+
+<DokkaComponent dokkaHTML={sourceHTML}/>
+        `)
+        return {
+            type: "doc",
+            id: path.join(folder, path.relative(src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
+            label: name
+        }
+    }
+
+    function transformIOSFile(file) {
+        const content = fs.readFileSync(file)
+        const dom = new JSDOM(content).window.document
+        const mainContent = dom.querySelector(".main-content")
+        mainContent.removeChild(breadcrums)
         for (a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
@@ -63,10 +96,10 @@ import sourceHTML from './${withoutEnding}.source'
         if (!indexPath) {
             throw new Error("no index found: " + dir)
         }
-        const index = transformFile(indexPath)
+        const index = platform == "Android" ? transformAndroidFile(indexPath) : transformIOSFile(indexPath)
         const items = [
             ...subdirs.map(subdir => generateForDir(subdir)),
-            ...files.map(file => transformFile(file))
+            ...files.map(file => platform == "Android" ? transformAndroidFile(file) : transformIOSFile(file))
         ]
         return {
             type: "category",
