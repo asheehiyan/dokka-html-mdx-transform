@@ -19,7 +19,7 @@ class AndroidFunctions extends DocFunctions {
         const cover = mainContent.querySelector(".cover")
         const coverHeader = cover.querySelector(".cover")
         cover.removeChild(coverHeader)
-        for (a of mainContent.querySelectorAll("a")) {
+        for (let a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
                 a.setAttribute("href", href.replace(/\.html/, "-"))

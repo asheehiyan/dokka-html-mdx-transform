@@ -15,7 +15,7 @@ class IOSFunctions extends DocFunctions {
         const dom = new JSDOM(content).window.document
         const mainContent = dom.querySelector(".main-content")
         const name = file.replace(/\.html/, "")
-        for (a of mainContent.querySelectorAll("a")) {
+        for (let a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
                 a.setAttribute("href", href.replace(/\.html/, "-"))
