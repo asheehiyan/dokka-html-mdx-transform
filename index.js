@@ -51,7 +51,6 @@ import sourceHTML from './${withoutEnding}.source'
         const content = fs.readFileSync(file)
         const dom = new JSDOM(content).window.document
         const mainContent = dom.querySelector(".main-content")
-        mainContent.removeChild(breadcrums)
         for (a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
