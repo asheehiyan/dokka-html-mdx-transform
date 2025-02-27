@@ -4,7 +4,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const DocFunctions = require("./docs");
 
-class IOSFunctions extends DocFunctions {
+export default class IOSFunctions extends DocFunctions {
 
     transformFile(file) {
         const content = fs.readFileSync(file)
@@ -117,5 +117,3 @@ import sourceHTML from './${withoutEnding}.source'
         }
     }
 }
-
-export default IOSFunctions

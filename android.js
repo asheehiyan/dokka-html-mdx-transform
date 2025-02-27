@@ -4,7 +4,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const DocFunctions = require("./docs")
 
-class AndroidFunctions extends DocFunctions {
+export default class AndroidFunctions extends DocFunctions {
 
     transformFile(file) {
         const content = fs.readFileSync(file)
@@ -122,5 +122,3 @@ import sourceHTML from './${withoutEnding}.source'
         }
     }
 }
-
-export default AndroidFunctions
