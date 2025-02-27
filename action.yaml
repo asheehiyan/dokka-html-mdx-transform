@@ -13,6 +13,9 @@ inputs:
   folder:
     description: "Name of the folder in dest which is created to store the output"
     required: true
+  platform:
+    description: "The platform of the project, typically ios or android, defaults to android"
+    required: false 
 runs:
   using: "node16"
   main:  "index.js"
