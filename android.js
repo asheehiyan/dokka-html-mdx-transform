@@ -27,8 +27,8 @@ class AndroidFunctions extends DocFunctions {
         }
         const newString = mainContent.innerHTML
         const withoutEnding = path.basename(file).replace(".html", "-")
-        const newHtmlPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".source")
-        const newMdxPath = path.join(dest, folder, path.relative(src, path.dirname(file)), withoutEnding + ".mdx")
+        const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")
+        const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
 import DokkaComponent from "@graphglue/dokka-docusaurus"
@@ -40,7 +40,7 @@ import sourceHTML from './${withoutEnding}.source'
         `)
         return {
             type: "doc",
-            id: path.join(folder, path.relative(src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
+            id: path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
             label: name
         }
     }
@@ -83,7 +83,7 @@ import sourceHTML from './${withoutEnding}.source'
     generateModule(module) {
         const packageHierarchy = {}
         const packageMap = {}
-        const modulePath = path.join(src, module)
+        const modulePath = path.join(this.src, module)
         for (const pckg of fs.readdirSync(modulePath)) {
             const packagePath = path.join(modulePath, pckg)
             if (fs.statSync(packagePath).isDirectory()) {
