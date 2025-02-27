@@ -1,9 +1,10 @@
-import {path} from 'path'
-import { fs } from 'fs-extra'
-import { JSDOM } from 'jsdom';
-import DocFunctions from './docs'
+const path = require('path');
+const fs = require('fs-extra')
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+const DocFunctions = require("./docs");
 
-export default class IOSFunctions extends DocFunctions {
+class IOSFunctions extends DocFunctions {
 
     transformFile(file) {
         const content = fs.readFileSync(file)
