@@ -42,35 +42,30 @@ import sourceHTML from './${withoutEnding}.source'
     }
 
     generateForDir(dir) {
+        console.log(`generating for dir: ${dir}`)
+        const dirName = path.dirname(dir)
         const subdirs = []
         const files = []
-        let indexPath = null
         for (const subdir of fs.readdirSync(dir)) {
+            console.log(`\tchecking subdir: ${subdir}`)
             const subdirPath = path.join(dir, subdir)
             if (fs.statSync(subdirPath).isDirectory()) {
                 subdirs.push(subdirPath)
             } else {
-                if (subdir == `${subdir}.html`) {
-                    indexPath = subdirPath
-                } else {
-                    files.push(subdirPath)
-                }
+                files.push(subdirPath)
             }
         }
-        if (!indexPath) {
-            throw new Error("no index found: " + dir)
-        }
-        const index = this.transformFile(indexPath)
+        
         const items = [
             ...subdirs.map(subdir => this.generateForDir(subdir)),
             ...files.map(file => this.transformFile(file))
         ]
         return {
             type: "category",
-            label: index.label,
+            label: dirName,
             link: {
                 type: "doc",
-                id: index.id
+                id: dirName
             },
             items: items
         }
