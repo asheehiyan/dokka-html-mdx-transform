@@ -66,7 +66,7 @@ import sourceHTML from './${withoutEnding}.source'
         }
         const index = transformFile(indexPath)
         const items = [
-            ...subdirs.map(subdir => generateForDir(subdir)),
+            ...subdirs.map(subdir => this.generateForDir(subdir)),
             ...files.map(file => this.transformFile(file))
         ]
         return {
@@ -90,7 +90,7 @@ import sourceHTML from './${withoutEnding}.source'
                 if (pckg == "scripts") {
                     continue
                 }
-                const generated = generateForDir(packagePath)
+                const generated = this.generateForDir(packagePath)
                 const packageStructure = generated.label.split(".")
                 let currentMap = packageHierarchy
                 for (const packagePart of packageStructure) {
@@ -115,7 +115,7 @@ import sourceHTML from './${withoutEnding}.source'
             localName = ""
         }
         for (const newPart in packageHierarchy) {
-            items.push(...generateCategoriesRec(packageHierarchy[newPart], packageMap, joinParts(localName, newPart), joinParts(globalName, newPart)))
+            items.push(...this.generateCategoriesRec(packageHierarchy[newPart], packageMap, this.joinParts(localName, newPart), this.joinParts(globalName, newPart)))
         }
         if (sidebarElement != null) {
             sidebarElement.items = [...sidebarElement.items, ...items]
