@@ -38,3 +38,7 @@ class DocFunctions {
         }
     }
 }
+
+module.exports = {
+    DocFunctions
+};

@@ -2,8 +2,7 @@ const path = require('path');
 const fs = require('fs-extra')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const doc = require("./docs");
-const { DocFunctions } = doc
+const { DocFunctions } = require("./docs");
 
 class IOSFunctions extends DocFunctions {
 
@@ -122,3 +121,5 @@ import sourceHTML from './${withoutEnding}.source'
         }
     }
 }
+
+module.exports = IOSFunctions

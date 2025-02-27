@@ -1,13 +1,11 @@
-const fs = require('fs-extra')
+const fs = require('fs-extra');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const doc = require("./docs");
-const { DocFunctions } = doc
+const { DocFunctions } = require("./docs");
 
 class AndroidFunctions extends DocFunctions {
-
     constructor(src, dest, folder) {
-        super(src, dest, folder)
+        super(src, dest, folder);
     }
 
     transformFile(file) {
@@ -126,3 +124,5 @@ import sourceHTML from './${withoutEnding}.source'
         }
     }
 }
+
+module.exports = AndroidFunctions
