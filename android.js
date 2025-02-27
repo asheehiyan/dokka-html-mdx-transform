@@ -5,6 +5,10 @@ const DocFunctions = require("./docs")
 
 class AndroidFunctions extends DocFunctions {
 
+    constructor(src, dest, folder) {
+        super(src, dest, folder)
+    }
+
     transformFile(file) {
         const content = fs.readFileSync(file)
         const dom = new JSDOM(content).window.document
