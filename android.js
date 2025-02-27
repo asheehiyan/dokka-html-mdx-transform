@@ -1,7 +1,8 @@
 const fs = require('fs-extra')
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const DocFunctions = require("./docs")
+const doc = require("./docs");
+const { DocFunctions } = doc
 
 class AndroidFunctions extends DocFunctions {
 
