@@ -1,10 +1,9 @@
 class DocFunctions {
 
-    constructor(src, dest, folder, package) {
+    constructor(src, dest, folder) {
         this.src = src
         this.dest = dest
         this.folder = folder
-        this.package = package
     }
 
     transformFile(file) {
