@@ -1,8 +1,8 @@
-const path = require('path');
-const fs = require('fs-extra');
-const core = require('@actions/core');
-const AndroidFunctions = require("./android");
-const IOSFunctions = require("./ios");
+import {path} from 'path'
+import { fs } from 'fs-extra'
+import { core } from '@actions/core'
+import AndroidFunctions from './android';
+import IOSFunctions from './ios';
 
 try {
     const src = core.getInput("src")
