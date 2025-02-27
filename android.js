@@ -64,7 +64,7 @@ import sourceHTML from './${withoutEnding}.source'
         if (!indexPath) {
             throw new Error("no index found: " + dir)
         }
-        const index = transformFile(indexPath)
+        const index = this.transformFile(indexPath)
         const items = [
             ...subdirs.map(subdir => this.generateForDir(subdir)),
             ...files.map(file => this.transformFile(file))
