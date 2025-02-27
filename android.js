@@ -1,3 +1,4 @@
+const path = require('path');
 const fs = require('fs-extra');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
