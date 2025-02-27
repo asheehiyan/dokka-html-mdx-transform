@@ -81,10 +81,10 @@ import sourceHTML from './${withoutEnding}.source'
         const packageHierarchy = {}
         const packageMap = {}
         const modulePath = path.join(src, module)
-        for (const package of fs.readdirSync(modulePath)) {
-            const packagePath = path.join(modulePath, package)
+        for (const pckg of fs.readdirSync(modulePath)) {
+            const packagePath = path.join(modulePath, pckg)
             if (fs.statSync(packagePath).isDirectory()) {
-                if (package == "scripts") {
+                if (pckg == "scripts") {
                     continue
                 }
                 const generated = generateForDir(packagePath)
