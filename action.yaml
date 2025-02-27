@@ -1,8 +1,8 @@
-name: "dokka-html-mdx-transform"
-description: "Transforms the output of dokkaHtml to mdx files"
+name: "docs-html-mdx-transform"
+description: "Transforms the output of dokkaHtml or Jazzy to mdx files"
 inputs:
   src:
-    description: "The path of the packages output of dokkaHTML, typically something like build/dokka/html"
+    description: "The path of the packages output of dokkaHTML or Jazzy, typically something like build/dokka/html"
     required: true
   modules:
     description: "The modules of the project, typically the folders in src"

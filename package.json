@@ -1,6 +1,6 @@
 {
-  "name": "dokka-html-mdx-transform",
-  "version": "1.0.0",
+  "name": "docs-html-mdx-transform",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
