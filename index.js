@@ -51,6 +51,7 @@ import sourceHTML from './${withoutEnding}.source'
         const content = fs.readFileSync(file)
         const dom = new JSDOM(content).window.document
         const mainContent = dom.querySelector(".main-content")
+        const name = file.replace(/\.html/, "")
         for (a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
@@ -65,6 +66,8 @@ import sourceHTML from './${withoutEnding}.source'
         fs.outputFileSync(newMdxPath, `
 import DokkaComponent from "@graphglue/dokka-docusaurus"
 import sourceHTML from './${withoutEnding}.source'
+
+# ${name}
 
 <DokkaComponent dokkaHTML={sourceHTML}/>
         `)
