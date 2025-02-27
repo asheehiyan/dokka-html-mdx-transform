@@ -66,8 +66,6 @@ import sourceHTML from './${withoutEnding}.source'
 import DokkaComponent from "@graphglue/dokka-docusaurus"
 import sourceHTML from './${withoutEnding}.source'
 
-# ${name}
-
 <DokkaComponent dokkaHTML={sourceHTML}/>
         `)
         return {
