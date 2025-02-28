@@ -47,15 +47,6 @@ import sourceHTML from './${withoutEnding}.source'
         console.log(`fileName: ${fileName}`)
         const displayName = fileName.substring(fileName.lastIndexOf(path.sep) + 1)
         console.log(`displayName: ${displayName}`)
-        for (const subdir of fs.readdirSync(dir)) {
-            console.log(`\tchecking subdir: ${subdir}`)
-            const subdirPath = path.join(dir, subdir)
-            if (fs.statSync(subdirPath).isDirectory()) {
-                subdirs.push(subdirPath)
-            } else {
-                files.push(subdirPath)
-            }
-        }
         
         const items = [
             this.transformFile(file)
