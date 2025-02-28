@@ -45,7 +45,7 @@ import sourceHTML from './${withoutEnding}.source'
         console.log(`generating for file: ${file}`)
         const fileName = path.dirname(file)
         console.log(`fileName: ${fileName}`)
-        const displayName = fileName.substring(dirName.lastIndexOf(path.sep) + 1)
+        const displayName = fileName.substring(fileName.lastIndexOf(path.sep) + 1)
         console.log(`displayName: ${displayName}`)
         for (const subdir of fs.readdirSync(dir)) {
             console.log(`\tchecking subdir: ${subdir}`)
@@ -66,7 +66,7 @@ import sourceHTML from './${withoutEnding}.source'
             label: displayName,
             link: {
                 type: "doc",
-                id: dirName
+                id: fileName
             },
             items: items
         }
