@@ -41,9 +41,43 @@ import sourceHTML from './${withoutEnding}.source'
         }
     }
 
+    generateForFile(file) {
+        console.log(`generating for file: ${file}`)
+        const fileName = path.dirname(file)
+        console.log(`fileName: ${fileName}`)
+        const displayName = fileName.substring(dirName.lastIndexOf(path.sep) + 1)
+        console.log(`displayName: ${displayName}`)
+        for (const subdir of fs.readdirSync(dir)) {
+            console.log(`\tchecking subdir: ${subdir}`)
+            const subdirPath = path.join(dir, subdir)
+            if (fs.statSync(subdirPath).isDirectory()) {
+                subdirs.push(subdirPath)
+            } else {
+                files.push(subdirPath)
+            }
+        }
+        
+        const items = [
+            this.transformFile(file)
+        ]
+
+        return {
+            type: "category",
+            label: displayName,
+            link: {
+                type: "doc",
+                id: dirName
+            },
+            items: items
+        }
+    }
+
     generateForDir(dir) {
         console.log(`generating for dir: ${dir}`)
         const dirName = path.dirname(dir)
+        console.log(`dirName: ${dirName}`)
+        const displayName = dirName.substring(dirName.lastIndexOf(path.sep) + 1)
+        console.log(`displayName: ${displayName}`)
         const subdirs = []
         const files = []
         for (const subdir of fs.readdirSync(dir)) {
@@ -62,7 +96,7 @@ import sourceHTML from './${withoutEnding}.source'
         ]
         return {
             type: "category",
-            label: dirName,
+            label: displayName,
             link: {
                 type: "doc",
                 id: dirName
@@ -72,6 +106,7 @@ import sourceHTML from './${withoutEnding}.source'
     }
 
     generateModule(module) {
+        console.log(`generating module: ${module}`)
         const packageHierarchy = {}
         const packageMap = {}
         const modulePath = path.join(this.src, module)
@@ -82,6 +117,17 @@ import sourceHTML from './${withoutEnding}.source'
                     continue
                 }
                 const generated = this.generateForDir(packagePath)
+                const packageStructure = generated.label.split(".")
+                let currentMap = packageHierarchy
+                for (const packagePart of packageStructure) {
+                    if (currentMap[packagePart] == undefined) {
+                        currentMap[packagePart] = {}
+                    }
+                    currentMap = currentMap[packagePart]
+                }
+                packageMap[generated.label] = generated
+            } else {
+                const generated = this.generateForFile(packagePath)
                 const packageStructure = generated.label.split(".")
                 let currentMap = packageHierarchy
                 for (const packagePart of packageStructure) {
