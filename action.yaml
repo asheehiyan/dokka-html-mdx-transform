@@ -16,6 +16,9 @@ inputs:
   platform:
     description: "The platform of the project, typically ios or android, defaults to android"
     required: false 
+  output_path_prefix:
+    description: "Containing folders for the dest path relative to your docusaurus root"
+    required: false
 runs:
   using: "node16"
   main:  "index.js"

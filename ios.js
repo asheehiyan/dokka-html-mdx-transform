@@ -6,15 +6,15 @@ const { DocFunctions } = require("./docs");
 
 class IOSFunctions extends DocFunctions {
 
-    constructor(src, dest, folder) {
-        super(src, dest, folder)
+    constructor(src, dest, folder, output_path_prefix) {
+        super(src, dest, folder, output_path_prefix)
     }
 
     transformFile(file) {
         const content = fs.readFileSync(file)
         const dom = new JSDOM(content).window.document
         const mainContent = dom.querySelector(".main-content")
-        const name = file.replace(/\.html/, "")
+        const name = file.replace(/\.html/, "").split("/").pop()
         for (let a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
@@ -55,10 +55,6 @@ import sourceHTML from './${withoutEnding}.source'
         return {
             type: "category",
             label: displayName,
-            link: {
-                type: "doc",
-                id: fileName
-            },
             items: items
         }
     }
@@ -88,10 +84,6 @@ import sourceHTML from './${withoutEnding}.source'
         return {
             type: "category",
             label: displayName,
-            link: {
-                type: "doc",
-                id: dirName
-            },
             items: items
         }
     }
@@ -139,7 +131,6 @@ import sourceHTML from './${withoutEnding}.source'
         if (globalName in packageMap) {
             sidebarElement = packageMap[globalName]
             sidebarElement.label = localName
-            sidebarElement.className = "sidebar-package-title"
             localName = ""
         }
         for (const newPart in packageHierarchy) {

@@ -5,8 +5,8 @@ const { JSDOM } = jsdom;
 const { DocFunctions } = require("./docs");
 
 class AndroidFunctions extends DocFunctions {
-    constructor(src, dest, folder) {
-        super(src, dest, folder);
+    constructor(src, dest, folder, output_path_prefix) {
+        super(src, dest, folder, output_path_prefix);
     }
 
     transformFile(file) {
@@ -40,7 +40,7 @@ import sourceHTML from './${withoutEnding}.source'
         `)
         return {
             type: "doc",
-            id: path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
+            id: this.output_path_prefix + path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
             label: name
         }
     }
@@ -72,10 +72,6 @@ import sourceHTML from './${withoutEnding}.source'
         return {
             type: "category",
             label: index.label,
-            link: {
-                type: "doc",
-                id: index.id
-            },
             items: items
         }
     }
@@ -111,7 +107,6 @@ import sourceHTML from './${withoutEnding}.source'
         if (globalName in packageMap) {
             sidebarElement = packageMap[globalName]
             sidebarElement.label = localName
-            sidebarElement.className = "sidebar-package-title"
             localName = ""
         }
         for (const newPart in packageHierarchy) {

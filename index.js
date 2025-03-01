@@ -10,6 +10,7 @@ try {
     const folder = core.getInput("folder")
     const modules = core.getMultilineInput("modules")
     const platform = core.getInput("platform") || "android"
+    const output_path_prefix = core.getInput("output_path_prefix") || ""
 
     const docFunctions = platform == "android" ? new AndroidFunctions(src, dest, folder) : new IOSFunctions(src, dest, folder)
     
