@@ -12,7 +12,7 @@ try {
     const platform = core.getInput("platform") || "android"
     const output_path_prefix = core.getInput("output_path_prefix") || ""
 
-    const docFunctions = platform == "android" ? new AndroidFunctions(src, dest, folder) : new IOSFunctions(src, dest, folder)
+    const docFunctions = platform == "android" ? new AndroidFunctions(src, dest, folder, output_path_prefix) : new IOSFunctions(src, dest, folder, output_path_prefix)
     
 
     const moduleCategories = []

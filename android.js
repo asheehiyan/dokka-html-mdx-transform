@@ -31,7 +31,7 @@ class AndroidFunctions extends DocFunctions {
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
-import DokkaComponent from "@graphglue/dokka-docusaurus"
+import DokkaComponent from "@site/src/components/DokkaComponent"
 import sourceHTML from './${withoutEnding}.source'
 
 # ${name}

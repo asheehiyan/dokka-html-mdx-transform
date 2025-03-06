@@ -27,12 +27,12 @@ class IOSFunctions extends DocFunctions {
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
-import DokkaComponent from "@graphglue/dokka-docusaurus"
+import DokkaComponent from "@site/src/components/JazzyComponent"
 import sourceHTML from './${withoutEnding}.source'
 
 # ${name}
 
-<DokkaComponent dokkaHTML={sourceHTML}/>
+<JazzyComponent dokkaHTML={sourceHTML}/>
         `)
         return {
             type: "doc",
