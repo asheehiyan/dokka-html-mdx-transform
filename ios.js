@@ -65,6 +65,8 @@ import sourceHTML from './${withoutEnding}.source'
             ...files.map(file => this.transformFile(file))
         ]
 
+        console.log(`Generated for dir ${dir}: ${JSON.stringify(items)}`)
+
         return {
             type: "category",
             label: displayName,
@@ -95,12 +97,14 @@ import sourceHTML from './${withoutEnding}.source'
                 packageMap[generated.label] = generated
             } else {
                 const generated = this.transformFile(packagePath)
-                console.log(`generated: ${generated} for ${packagePath}`)
-                const packageStructure = generated.label.split(".")
+                console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
                 let currentMap = packageHierarchy
                 for (const packagePart of packageStructure) {
                     if (currentMap[packagePart] == undefined) {
-                        currentMap[packagePart] = {}
+                        console.log(`setting currentMap[${packagePart}] to ${JSON.stringify({items: [generated]})}`)
+                        currentMap[packagePart] = {
+                            items: [generated]
+                        }
                     }
                     currentMap = currentMap[packagePart]
                 }
@@ -123,11 +127,14 @@ import sourceHTML from './${withoutEnding}.source'
         for (const newPart in packageHierarchy) {
             items.push(...this.generateCategoriesRec(packageHierarchy[newPart], packageMap, this.joinParts(localName, newPart), this.joinParts(globalName, newPart)))
         }
+
         if (sidebarElement != null) {
             if (sidebarElement.items != null) {
                 sidebarElement.items = [...sidebarElement.items, ...items]
-            } else {
+            } else if (items.length > 0) {
                 sidebarElement.items = items
+            } else {
+                sidebarElement.items = []
             }
             return [sidebarElement]
         } else {
