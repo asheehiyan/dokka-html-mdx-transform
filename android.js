@@ -34,8 +34,6 @@ class AndroidFunctions extends DocFunctions {
 import DokkaComponent from "@site/src/components/DokkaComponent"
 import sourceHTML from './${withoutEnding}.source'
 
-# ${name}
-
 <DokkaComponent dokkaHTML={sourceHTML}/>
         `)
         return {
