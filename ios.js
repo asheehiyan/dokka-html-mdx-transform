@@ -99,14 +99,11 @@ import sourceHTML from './${withoutEnding}.source'
                 const generated = this.transformFile(packagePath)
                 console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
                 let currentMap = packageHierarchy
-                for (const packagePart of packageStructure) {
-                    if (currentMap[packagePart] == undefined) {
-                        console.log(`setting currentMap[${packagePart}] to ${JSON.stringify({items: [generated]})}`)
-                        currentMap[packagePart] = {
-                            items: [generated]
-                        }
+                if (currentMap[generated.label] == undefined) {
+                    console.log(`setting currentMap[${generated.label}] to ${JSON.stringify({items: [generated]})}`)
+                    currentMap[generated.label] = {
+                        items: [generated]
                     }
-                    currentMap = currentMap[packagePart]
                 }
                 packageMap[generated.label] = generated
             }
