@@ -95,6 +95,7 @@ import sourceHTML from './${withoutEnding}.source'
                 packageMap[generated.label] = generated
             } else {
                 const generated = this.transformFile(packagePath)
+                console.log(`generated: ${generated} for ${packagePath}`)
                 const packageStructure = generated.label.split(".")
                 let currentMap = packageHierarchy
                 for (const packagePart of packageStructure) {
@@ -106,10 +107,12 @@ import sourceHTML from './${withoutEnding}.source'
                 packageMap[generated.label] = generated
             }
         }
+        console.log(`Generated module: ${JSON.stringify([packageHierarchy, packageMap])}`)
         return [packageHierarchy, packageMap]
     }
 
     generateCategoriesRec(packageHierarchy, packageMap, localName, globalName) {
+        console.log(`generating categories rec: ${JSON.stringify(packageHierarchy)}, ${JSON.stringify(packageMap)}, ${localName}, ${globalName}`)
         const items = []
         let sidebarElement = null
         if (globalName in packageMap) {
@@ -120,8 +123,12 @@ import sourceHTML from './${withoutEnding}.source'
         for (const newPart in packageHierarchy) {
             items.push(...this.generateCategoriesRec(packageHierarchy[newPart], packageMap, this.joinParts(localName, newPart), this.joinParts(globalName, newPart)))
         }
-        if (sidebarElement != null && sidebarElement.items) {
-            sidebarElement.items = [...sidebarElement.items, ...items]
+        if (sidebarElement != null) {
+            if (sidebarElement.items != null) {
+                sidebarElement.items = [...sidebarElement.items, ...items]
+            } else {
+                sidebarElement.items = items
+            }
             return [sidebarElement]
         } else {
             return items
