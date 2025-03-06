@@ -22,12 +22,7 @@ try {
         moduleCategories.push({
             type: "category",
             label: module,
-            items: categories,
-            link: {
-                type: "generated-index",
-                title: module,
-                slug: path.join(folder, module).replace(/\\/g, "/")
-            }
+            items: categories
         })
     }
 

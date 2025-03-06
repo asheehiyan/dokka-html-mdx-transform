@@ -14,7 +14,7 @@ class IOSFunctions extends DocFunctions {
         const content = fs.readFileSync(file)
         const dom = new JSDOM(content).window.document
         const mainContent = dom.querySelector(".main-content")
-        const name = file.replace(/\.html/, "").split("/").pop()
+        const name = path.basename(file, '.html')
         for (let a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
@@ -32,28 +32,13 @@ import sourceHTML from './${withoutEnding}.source'
 
 <JazzyComponent dokkaHTML={sourceHTML}/>
         `)
+
+        console.log(`transformed file: ${file} -> ${this.output_path_prefix + path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/")}`)
+        console.log(`\tname: ${name}`)
         return {
             type: "doc",
-            id: path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
+            id: this.output_path_prefix + path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
             label: name
-        }
-    }
-
-    generateForFile(file) {
-        console.log(`generating for file: ${file}`)
-        const fileName = path.dirname(file)
-        console.log(`fileName: ${fileName}`)
-        const displayName = fileName.substring(fileName.lastIndexOf(path.sep) + 1)
-        console.log(`displayName: ${displayName}`)
-        
-        const items = [
-            this.transformFile(file)
-        ]
-
-        return {
-            type: "category",
-            label: displayName,
-            items: items
         }
     }
 
@@ -79,6 +64,7 @@ import sourceHTML from './${withoutEnding}.source'
             ...subdirs.map(subdir => this.generateForDir(subdir)),
             ...files.map(file => this.transformFile(file))
         ]
+
         return {
             type: "category",
             label: displayName,
@@ -108,7 +94,7 @@ import sourceHTML from './${withoutEnding}.source'
                 }
                 packageMap[generated.label] = generated
             } else {
-                const generated = this.generateForFile(packagePath)
+                const generated = this.transformFile(packagePath)
                 const packageStructure = generated.label.split(".")
                 let currentMap = packageHierarchy
                 for (const packagePart of packageStructure) {
