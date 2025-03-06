@@ -102,7 +102,7 @@ import sourceHTML from './${withoutEnding}.source'
             } else {
                 const generated = this.transformFile(packagePath)
                 console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
-                packageMap.items = [...items, generated]
+                packageMap.items = [...packageMap.items, generated]
             }
         }
         console.log(`Generated module: ${JSON.stringify([packageHierarchy, packageMap])}`)
