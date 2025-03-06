@@ -77,7 +77,11 @@ import sourceHTML from './${withoutEnding}.source'
     generateModule(module) {
         console.log(`generating module: ${module}`)
         const packageHierarchy = {}
-        const packageMap = {}
+        const packageMap = {
+            type: "category",
+            label: module,
+            items: []
+        }
         const modulePath = path.join(this.src, module)
         for (const pckg of fs.readdirSync(modulePath)) {
             const packagePath = path.join(modulePath, pckg)
@@ -98,14 +102,7 @@ import sourceHTML from './${withoutEnding}.source'
             } else {
                 const generated = this.transformFile(packagePath)
                 console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
-                let currentMap = packageHierarchy
-                if (currentMap[generated.label] == undefined) {
-                    console.log(`setting currentMap[${generated.label}] to ${JSON.stringify({items: [generated]})}`)
-                    currentMap[generated.label] = {
-                        items: [generated]
-                    }
-                }
-                packageMap[generated.label] = generated
+                packageMap.items = [...items, generated]
             }
         }
         console.log(`Generated module: ${JSON.stringify([packageHierarchy, packageMap])}`)
