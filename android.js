@@ -66,6 +66,7 @@ import sourceHTML from './${withoutEnding}.source'
         }
         const index = this.transformFile(indexPath)
         const items = [
+            index,
             ...subdirs.map(subdir => this.generateForDir(subdir)),
             ...files.map(file => this.transformFile(file))
         ]
