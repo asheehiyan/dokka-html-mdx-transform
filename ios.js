@@ -77,11 +77,14 @@ import sourceHTML from './${withoutEnding}.source'
     generateModule(module) {
         console.log(`generating module: ${module}`)
         const packageHierarchy = {}
-        const packageMap = {
+        const packageMap = {}
+
+        packageMap[module] = {
             type: "category",
             label: module,
             items: []
         }
+
         const modulePath = path.join(this.src, module)
         for (const pckg of fs.readdirSync(modulePath)) {
             const packagePath = path.join(modulePath, pckg)
@@ -102,9 +105,7 @@ import sourceHTML from './${withoutEnding}.source'
             } else {
                 const generated = this.transformFile(packagePath)
                 console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
-                packageMap.items = [...packageMap.items, generated]
-                let currentMap = packageHierarchy
-                currentMap[generated.label] = {}
+                packageMap[generated.label] = generated
             }
         }
 
