@@ -132,8 +132,6 @@ import sourceHTML from './${withoutEnding}.source'
                 sidebarElement.items = [...sidebarElement.items, ...items]
             } else if (items.length > 0) {
                 sidebarElement.items = items
-            } else {
-                sidebarElement.items = []
             }
             console.log(`returning sidebar element: ${JSON.stringify(sidebarElement)}`)
             return [sidebarElement]
