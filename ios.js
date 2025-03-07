@@ -103,11 +103,9 @@ import sourceHTML from './${withoutEnding}.source'
                 const generated = this.transformFile(packagePath)
                 console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
                 packageMap.items = [...packageMap.items, generated]
+                let currentMap = packageHierarchy
+                currentMap[generated.label] = {}
             }
-        }
-
-        if (packageHierarchy == {}) {
-            packageHierarchy[packageMap.label] = {}
         }
 
         console.log(`Generated module: ${JSON.stringify([packageHierarchy, packageMap])}`)
