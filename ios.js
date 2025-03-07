@@ -105,6 +105,7 @@ import sourceHTML from './${withoutEnding}.source'
             } else {
                 const generated = this.transformFile(packagePath)
                 console.log(`generated: ${JSON.stringify(generated)} for ${packagePath}`)
+                packageHierarchy[generated.label] = {}
                 packageMap[generated.label] = generated
             }
         }
