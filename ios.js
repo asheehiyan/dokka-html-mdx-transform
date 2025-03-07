@@ -105,6 +105,11 @@ import sourceHTML from './${withoutEnding}.source'
                 packageMap.items = [...packageMap.items, generated]
             }
         }
+
+        if (packageHierarchy == {}) {
+            packageHierarchy[packageMap.label] = {}
+        }
+
         console.log(`Generated module: ${JSON.stringify([packageHierarchy, packageMap])}`)
         return [packageHierarchy, packageMap]
     }
@@ -130,8 +135,10 @@ import sourceHTML from './${withoutEnding}.source'
             } else {
                 sidebarElement.items = []
             }
+            console.log(`returning sidebar element: ${JSON.stringify(sidebarElement)}`)
             return [sidebarElement]
         } else {
+            console.log(`returning items: ${JSON.stringify(items)}`)
             return items
         }
     }
