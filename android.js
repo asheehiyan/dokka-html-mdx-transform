@@ -22,21 +22,25 @@ class AndroidFunctions extends DocFunctions {
         for (let a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
-                a.setAttribute("href", href.replace(/\.html/, "-"))
+                a.setAttribute("href", href.replace(/\.html/, ""))
             }
         }
         const newString = mainContent.innerHTML
-        const withoutEnding = path.basename(file).replace(".html", "-")
+        const withoutEnding = path.basename(file).replace(".html", "")
         const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
+---
+title: ${name}
+--- 
+
 import DokkaComponent from "@site/src/components/DokkaComponent"
 import sourceHTML from './${withoutEnding}.source'
 
 <DokkaComponent dokkaHTML={sourceHTML}/>
         `)
-        return {
+        return {``
             type: "doc",
             id: this.output_path_prefix + path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
             label: name

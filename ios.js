@@ -27,6 +27,10 @@ class IOSFunctions extends DocFunctions {
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
+---
+title: ${name}
+--- 
+
 import JazzyComponent from "@site/src/components/JazzyComponent"
 import sourceHTML from './${withoutEnding}.source'
 
