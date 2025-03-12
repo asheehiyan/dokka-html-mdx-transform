@@ -26,7 +26,7 @@ class AndroidFunctions extends DocFunctions {
             }
         }
         const newString = mainContent.innerHTML
-        const withoutEnding = path.basename(file).replace("-.html", "-")
+        const withoutEnding = path.basename(file).replace(".html", "-")
         const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
