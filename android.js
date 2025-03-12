@@ -22,11 +22,11 @@ class AndroidFunctions extends DocFunctions {
         for (let a of mainContent.querySelectorAll("a")) {
             const href = a.getAttribute("href")
             if (href && !href.startsWith("http")) {
-                a.setAttribute("href", href.replace(/\.html/, ""))
+                a.setAttribute("href", href.replace(/\.html/, "-"))
             }
         }
         const newString = mainContent.innerHTML
-        const withoutEnding = path.basename(file).replace(".html", "")
+        const withoutEnding = path.basename(file).replace("-.html", "-")
         const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
         fs.outputFileSync(newHtmlPath, newString)
