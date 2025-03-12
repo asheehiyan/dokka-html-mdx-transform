@@ -40,7 +40,7 @@ import sourceHTML from './${withoutEnding}.source'
 
 <DokkaComponent dokkaHTML={sourceHTML}/>
         `)
-        return {``
+        return {
             type: "doc",
             id: this.output_path_prefix + path.join(this.folder, path.relative(this.src, path.dirname(file)), withoutEnding).replace(/\\/g, "/"),
             label: name
