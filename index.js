@@ -11,8 +11,9 @@ try {
     const modules = core.getMultilineInput("modules")
     const platform = core.getInput("platform") || "android"
     const output_path_prefix = core.getInput("output_path_prefix") || ""
+    const displayed_sidebar = core.getInput("displayed_sidebar") || null
 
-    const docFunctions = platform == "android" ? new AndroidFunctions(src, dest, folder, output_path_prefix) : new IOSFunctions(src, dest, folder, output_path_prefix)
+    const docFunctions = platform == "android" ? new AndroidFunctions(src, dest, folder, output_path_prefix, displayed_sidebar) : new IOSFunctions(src, dest, folder, output_path_prefix, displayed_sidebar)
     
 
     const moduleCategories = []

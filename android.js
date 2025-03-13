@@ -5,8 +5,8 @@ const { JSDOM } = jsdom;
 const { DocFunctions } = require("./docs");
 
 class AndroidFunctions extends DocFunctions {
-    constructor(src, dest, folder, output_path_prefix) {
-        super(src, dest, folder, output_path_prefix);
+    constructor(src, dest, folder, output_path_prefix, displayed_sidebar) {
+        super(src, dest, folder, output_path_prefix, displayed_sidebar);
     }
 
     transformFile(file) {
@@ -29,8 +29,13 @@ class AndroidFunctions extends DocFunctions {
         const withoutEnding = path.basename(file).replace(".html", "-")
         const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
+        const doc_header = this.displayed_sidebar != null ? 
+`---
+displayed_sidebar: ${this.displayed_sidebar}
+---` : ""
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
+${doc_header}
 import DokkaComponent from "@site/src/components/DokkaComponent"
 import sourceHTML from './${withoutEnding}.source'
 

@@ -19,6 +19,9 @@ inputs:
   output_path_prefix:
     description: "Containing folders for the dest path relative to your docusaurus root"
     required: false
+  displayed_sidebar:
+    description: "The name of the sidebar to display the generated files in. If not provided no default is used"
+    required: false
 runs:
   using: "node16"
   main:  "index.js"

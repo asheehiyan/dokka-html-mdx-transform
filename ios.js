@@ -6,8 +6,8 @@ const { DocFunctions } = require("./docs");
 
 class IOSFunctions extends DocFunctions {
 
-    constructor(src, dest, folder, output_path_prefix) {
-        super(src, dest, folder, output_path_prefix)
+    constructor(src, dest, folder, output_path_prefix, displayed_sidebar) {
+        super(src, dest, folder, output_path_prefix, displayed_sidebar)
     }
 
     transformFile(file) {
@@ -25,8 +25,13 @@ class IOSFunctions extends DocFunctions {
         const withoutEnding = path.basename(file).replace(".html", "")
         const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")
         const newMdxPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".mdx")
+        const doc_header = this.displayed_sidebar != null ? 
+`---
+displayed_sidebar: ${this.displayed_sidebar}
+---` : ""
         fs.outputFileSync(newHtmlPath, newString)
         fs.outputFileSync(newMdxPath, `
+${doc_header}
 import JazzyComponent from "@site/src/components/JazzyComponent"
 import sourceHTML from './${withoutEnding}.source'
 
