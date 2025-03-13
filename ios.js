@@ -30,8 +30,8 @@ class IOSFunctions extends DocFunctions {
 displayed_sidebar: ${this.displayed_sidebar}
 ---` : ""
         fs.outputFileSync(newHtmlPath, newString)
-        fs.outputFileSync(newMdxPath, `
-${doc_header}
+        fs.outputFileSync(newMdxPath, `${doc_header}
+
 import JazzyComponent from "@site/src/components/JazzyComponent"
 import sourceHTML from './${withoutEnding}.source'
 

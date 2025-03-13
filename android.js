@@ -34,8 +34,8 @@ class AndroidFunctions extends DocFunctions {
 displayed_sidebar: ${this.displayed_sidebar}
 ---` : ""
         fs.outputFileSync(newHtmlPath, newString)
-        fs.outputFileSync(newMdxPath, `
-${doc_header}
+        fs.outputFileSync(newMdxPath, `${doc_header}
+
 import DokkaComponent from "@site/src/components/DokkaComponent"
 import sourceHTML from './${withoutEnding}.source'
 
