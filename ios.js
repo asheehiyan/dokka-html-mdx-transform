@@ -6,8 +6,10 @@ const { DocFunctions } = require("./docs");
 
 class IOSFunctions extends DocFunctions {
 
-    constructor(src, dest, folder, output_path_prefix, displayed_sidebar) {
+    constructor(src, dest, folder, output_path_prefix, displayed_sidebar, remove_jazzy_footer) {
         super(src, dest, folder, output_path_prefix, displayed_sidebar)
+
+        this.remove_jazzy_footer = remove_jazzy_footer === "true" || remove_jazzy_footer === true;
     }
 
     transformFile(file) {
@@ -21,6 +23,14 @@ class IOSFunctions extends DocFunctions {
                 a.setAttribute("href", href.replace(/\.html/, ""))
             }
         }
+
+        if (this.remove_jazzy_footer) {
+            const footer = mainContent.querySelector("#footer")
+            if (footer) {
+                mainContent.removeChild(footer)
+            }
+        }
+        
         const newString = mainContent.innerHTML
         const withoutEnding = path.basename(file).replace(".html", "")
         const newHtmlPath = path.join(this.dest, this.folder, path.relative(this.src, path.dirname(file)), withoutEnding + ".source")

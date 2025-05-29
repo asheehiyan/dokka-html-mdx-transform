@@ -28,12 +28,31 @@
 ## Example usage
 
 ```yml
-uses: graphglue/dokka-html-mdx-transform@v1.7.20
+uses: asheehiyan/dokka-html-mdx-transform@0.0.50
 with:
-  src: "build/dokka/html/my-library"
+  src: "build/dokka/html/my-android-library"
+  platform: "android"
   modules: |
     module1
     module2
-  dest: "website/docs"
+  dest: "website/android-docs"
   folder: "dokka"
+  output_path_prefix: your/output/path/subdir
+  displayed_sidebar: sidebarName
+
+uses: asheehiyan/dokka-html-mdx-transform@0.0.50
+  with:
+    src: "build/jazzy/html/my-ios-library"
+    platform: "ios"
+    modules: |
+      Classes
+      Enums
+      Extensions
+      Protocols
+      Structs
+    dest: "website/ios-docs"
+    folder: "jazzy"
+    output_path_prefix: your/output/path/subdir
+    displayed_sidebar: sidebarName
+    remove_jazzy_footer: true
 ```

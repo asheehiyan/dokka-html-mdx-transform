@@ -22,6 +22,10 @@ inputs:
   displayed_sidebar:
     description: "The name of the sidebar to display the generated files in. If not provided no default is used"
     required: false
+  remove_jazzy_footer:
+    description: "If true, removes the jazzy footer from the generated files. If not provided defaults to false"
+    required: false
+
 runs:
   using: "node16"
   main:  "index.js"
